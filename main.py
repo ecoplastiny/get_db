@@ -121,7 +121,8 @@ for lang_id, lang_name in LANGUAGES:
                     "correct": correct,
                 })
 
-                print(f"Q{i+1}/{total_questions} [{cat_name}]: {strip_html(success.get('v', ''))[:55]}... → {correct} ({answers.get(correct, '?')})")
+                correct_text = ", ".join(answers.get(c, "?") for c in correct)
+                print(f"Q{i+1}/{total_questions} [{cat_name}]: {strip_html(success.get('v', ''))[:55]}... → {correct} ({correct_text})")
 
                 errors = 0
                 i += 1
