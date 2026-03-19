@@ -105,6 +105,10 @@ for lang_id, lang_name in LANGUAGES:
                 unical = success.get("unical")
                 answers = success.get("a", {}).get("rows", {})
 
+                raw_a = success.get("a")
+                if not raw_a or not raw_a.get("rows"):
+                    print(f"  ⚠️  Empty answers raw: {success}")
+
                 # Step 2: Submit dummy answer
                 vote_resp = session.post(URL, data={
                     "vote": unical,
@@ -112,6 +116,9 @@ for lang_id, lang_name in LANGUAGES:
                 }, timeout=3).json()
 
                 correct = vote_resp.get("sucess", {}).get("good", [])
+
+                if not correct:
+                    print(f"  ⚠️  Empty good: {vote_resp}")
 
                 questions.append({
                     "index": i + 1,
